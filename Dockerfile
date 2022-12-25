@@ -7,7 +7,7 @@ WORKDIR /app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-#Install npm package
+# Install npm package
 RUN npm install
 
 # Bundle app source
