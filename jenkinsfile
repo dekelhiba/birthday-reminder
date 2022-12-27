@@ -2,38 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('test') {
             steps {
-                // Run the build script to compile the application
-                //sh 'npm run build'
+                // Print a message 
+                sh 'echo "Building the app'
             }
         }
-
-        stage('Test') {
-            steps {
-                // Run the test script to verify the application
-                //sh 'npm test'
-            }
-        }
-
-        stage('Docker Build') {
+        
+        stage('Docker Build and Tag') {
             steps {
                 // Build the Docker image for the application
-                //sh 'docker build -t my-app .'
+                sh 'docker build . -t birthday-reminder-app:lst'
+                sh 'docker tag dekelhiba/birthday-reminder-app:lst'
             }
         }
 
-        stage('Docker Push') {
+        stage('Publish image to Docker Hub') {
             steps {
                 // Push the Docker image to the registry
-                //sh 'docker push my-app'
+                sh 'docker push dekelhiba/birthday-reminder-app:lst'
             }
         }
 
-        stage('Deploy') {
+        stage('Run Docker container on Jenkins Agent') {
             steps {
                 // Deploy the application using the Docker image
-                //sh 'kubectl apply -f deployment.yaml'
+                sh 'docker container run -d -p 3000:3000 dekelhiba/birthday-reminder-app:lst'
             }
         }
     }
