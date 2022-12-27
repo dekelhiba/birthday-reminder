@@ -5,7 +5,7 @@ pipeline {
         stage('test') {
             steps {
                 // Print a message 
-                sh 'echo "Building the app'
+                sh 'echo "Building the app"'
             }
         }
         
